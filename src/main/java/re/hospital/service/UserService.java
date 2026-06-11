@@ -17,7 +17,7 @@ public interface UserService {
     UserResponse getUserById(Long id);
     UserResponse updateUser(Long id, UserUpdateRequest request);
     void deactivateUser(Long id);
-    UserResponse createUser(UserUpdateRequest request, String password, List<String> roles);
+    UserResponse createUser(CreateUserRequest request, String password, List<String> roles);
     Page<UserResponse> searchUsers(String keyword, Pageable pageable);
 
 }

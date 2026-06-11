@@ -19,6 +19,8 @@ public class LoggingAspect {
     @Pointcut("execution(* re.hospital.controller.*.*(..))")
     public void controllerLayer() {}
 
+
+
     @Before("serviceLayer()")
     public void logBefore(JoinPoint joinPoint) {
         log.info("[SERVICE] Gọi method: {}.{}() với tham số: {}",

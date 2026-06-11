@@ -44,9 +44,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public UserResponse createUser(UserUpdateRequest request, String password, List<String> roleNames) {
+    public UserResponse createUser(CreateUserRequest request, String password, List<String> roleNames) {
         if (userRepository.existsByEmail(request.getEmail()))
             throw new ConflictException("Email đã được sử dụng");
+        if (userRepository.existsByUsername(request.getUsername()))
+            throw new ConflictException("Username đã được sử dụng");
 
         List<Role> roles = roleNames.stream()
                 .map(name -> roleRepository.findByRoleName(RoleName.valueOf(name))
@@ -54,7 +56,7 @@ public class UserServiceImpl implements UserService {
                 .toList();
 
         User user = User.builder()
-                .username(request.getEmail().split("@")[0])
+                .username(request.getUsername())
                 .password(passwordEncoder.encode(password))
                 .fullName(request.getFullName())
                 .email(request.getEmail())

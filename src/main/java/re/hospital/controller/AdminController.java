@@ -38,11 +38,12 @@ public class AdminController {
 
     @PostMapping("/users")
     public ResponseEntity<ApiResponse<UserResponse>> createUser(@Valid @RequestBody CreateUserRequest request) {
-        UserUpdateRequest updateReq = UserUpdateRequest.builder()
+        CreateUserRequest creReq = CreateUserRequest.builder()
+                .username(request.getUsername())
                 .fullName(request.getFullName()).email(request.getEmail()).phone(request.getPhone()).build();
         return new ResponseEntity<>(ApiResponse.<UserResponse>builder()
                 .success(true).message("Tạo người dùng thành công")
-                .data(userService.createUser(updateReq, request.getPassword(), request.getRoles())).build(),
+                .data(userService.createUser(creReq, request.getPassword(), request.getRoles())).build(),
                 HttpStatus.CREATED);
     }
 

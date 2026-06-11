@@ -14,6 +14,17 @@ public interface UserRepository extends JpaRepository<User, Long> {
     boolean existsByEmail(String email);
     boolean existsByPhone(String phone);
     @Query("SELECT u FROM User u WHERE u.fullName LIKE %:keyword% OR u.username LIKE %:keyword% OR u.email LIKE %:keyword%")
+//    @Query("""
+//        select u from User u where u.enabled=false and
+//         ( :keyword is null or
+//             lower(u.fullName) like lower(concat("%",:keyword,"%") )  or
+//
+//             lower(u.username) like lower(concat("%",:keyword,"%") )  or
+//
+//             lower(u.email) like lower(concat("%",:keyword,"%") )
+//                 )
+//
+//    """)
     Page<User> searchUsers(String keyword, Pageable pageable);
 
 }

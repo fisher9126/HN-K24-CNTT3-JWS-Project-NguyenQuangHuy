@@ -22,7 +22,7 @@ public class CustomUserDetails implements UserDetails {
     private Boolean enabled;
     private List<? extends GrantedAuthority> authorities;
 
-    @Override
+            @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
     }

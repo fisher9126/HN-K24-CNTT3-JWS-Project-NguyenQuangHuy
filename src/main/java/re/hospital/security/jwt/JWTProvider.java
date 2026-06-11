@@ -30,6 +30,7 @@ public class JWTProvider {
                 .expiration(expireDate)
                 .signWith(key)
                 .compact();
+
     }
 
     public boolean validateToken(String token) {
