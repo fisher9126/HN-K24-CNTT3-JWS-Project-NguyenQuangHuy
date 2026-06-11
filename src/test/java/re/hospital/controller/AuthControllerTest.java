@@ -19,12 +19,14 @@ import re.hospital.service.UserService;
 import java.util.List;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @SpringBootTest
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc(addFilters = false)
 class AuthControllerTest {
 
     @Autowired private MockMvc mockMvc;
@@ -100,6 +102,8 @@ class AuthControllerTest {
 
     @Test
     void logout_WithToken_Returns200() throws Exception {
+        doNothing().when(userService).logout(anyString());
+
         mockMvc.perform(post("/api/v1/auth/logout")
                         .header("Authorization", "Bearer some-valid-token"))
                 .andExpect(status().isOk())
