@@ -56,4 +56,5 @@ public class SpringSecurityConfig {
         provider.setPasswordEncoder(passwordEncoder);
         return provider;
     }
+
 }
